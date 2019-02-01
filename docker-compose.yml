@@ -1,0 +1,36 @@
+version: "3"
+services:
+
+  fpm:
+#    image: bd43c5a57b5b
+    build: php
+    links:
+      - web
+      - db
+
+  db:
+    image: mariadb:10.4
+#    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+
+  web:
+#    image: 28837dd55309
+    build: web
+#    volumes:
+#      - ~/www:/var/www/html
+    ports:
+      - "8099:80"
+#    restart: always
+    links:
+      - db
+
+  tools:
+#    image: d064f46edf63
+    build: tools
+    links:
+      - db
+      - web
+
+volumes:
+  db: ~
