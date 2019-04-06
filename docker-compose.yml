@@ -1,41 +1,44 @@
-version: "3"
+version: "3.2"
 services:
 
-  fpm:
-#    image: bd43c5a57b5b
-    build: php
-    links:
-      - web
-      - db
-
-  db:
-    image: mariadb:10.4
-#    restart: always
-    env_file:
-      - .env
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      - MYSQL_DATABASE
+      - MYSQL_HOST
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
 
-  web:
-#    image: 28837dd55309
-    build: web
-#    volumes:
-#      - ~/www:/var/www/html
-    ports:
-      - "8099:80"
-#    restart: always
-    links:
-      - db
+  php:
+    build: ./php
+    environment:
+      SSH_AUTH_SOCK: /tmp/agent.sock
+      XDEBUG: ${XDEBUG}
+      PHP_IDE_CONFIG: serverName=${XDEBUG_SERVER_NAME}
+      XDEBUG_CONFIG: remote_host=${LOCAL_IP} remote_port=${XDEBUG_PORT} idekey=${XDEBUG_IDEKEY}
+    volumes:
+      - $SSH_AUTH_SOCK:/tmp/agent.sock
+      - ~/.composer:/home/.composer
+      - ./docker/config/bashrc:/home/.bashrc
+      - ./docker/config/bash_aliases:/home/.bash_aliases
+      - ./docker/config/inputrc:/home/.inputrc
+      - ./docker/data/history:/home/.bash_history
+      - ./:/srv/
 
-  tools:
-#    image: d064f46edf63
-    build: tools
-    links:
-      - db
-      - web
+  nginx:
+    image: nginx:1.15.9-alpine
+    expose:
+      - 443
+    depends_on:
+      - php
+    environment:
+      DOMAIN_NAME: default:${DOMAIN_DEFAULT}
+    volumes:
+      - ./docker/nginx/vhost.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./:/srv/:ro
 
 volumes:
-  db: ~
+  mysql: ~
