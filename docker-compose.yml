@@ -2,9 +2,10 @@ version: "3.2"
 services:
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
     volumes:
       - mysql:/var/lib/mysql
+      - ./docker/data:/docker/data
     environment:
       - MYSQL_DATABASE
       - MYSQL_HOST
@@ -13,7 +14,7 @@ services:
       - MYSQL_PASSWORD
 
   php:
-    build: ./php
+    build: ./docker/php
     environment:
       SSH_AUTH_SOCK: /tmp/agent.sock
       XDEBUG: ${XDEBUG}

@@ -1,7 +1,7 @@
 FROM php:7.3.4-fpm-alpine
 
 ENV APCU_VERSION 5.1.17
-ENV XDEBUG_VERSION 2.4.0
+ENV XDEBUG_VERSION 2.7.2
 ENV COMPOSER_VERSION 1.8.5
 
 RUN apk add --update --no-cache \
@@ -12,12 +12,12 @@ RUN apk add --update --no-cache \
         libxml2-dev \
         unzip \
         zip \
-        zlib-dev && \
+        libzip-dev && \
     apk add --update --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
         icu-dev && \
     pecl install apcu-${APCU_VERSION} xdebug-${XDEBUG_VERSION} && \
-    docker-php-ext-install mbstring intl zip mysql pdo_mysql && \
+    docker-php-ext-install mbstring intl zip mysqli pdo_mysql && \
     docker-php-ext-enable apcu opcache xdebug && \
     apk del .build-deps && \
     apk add gosu --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ && \
