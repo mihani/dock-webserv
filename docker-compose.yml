@@ -6,6 +6,7 @@ services:
     volumes:
       - mysql:/var/lib/mysql
       - ./docker/data:/docker/data
+      - ./docker/mysql:/etc/mysql/conf.d
     environment:
       - MYSQL_DATABASE
       - MYSQL_HOST
