@@ -1,8 +1,8 @@
-FROM php:7.3.4-fpm-alpine
+FROM php:7.4.2-fpm-alpine
 
-ENV APCU_VERSION 5.1.17
-ENV XDEBUG_VERSION 2.7.2
-ENV COMPOSER_VERSION 1.8.5
+ENV APCU_VERSION 5.1.18
+ENV XDEBUG_VERSION 2.9.2
+ENV COMPOSER_VERSION 1.9.3
 
 RUN apk add --update --no-cache \
         bash \
@@ -12,13 +12,14 @@ RUN apk add --update --no-cache \
         libxml2-dev \
         unzip \
         zip \
+        oniguruma-dev \
         libzip-dev && \
     apk add --update --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
         icu-dev && \
     pecl install apcu-${APCU_VERSION} xdebug-${XDEBUG_VERSION} && \
-    docker-php-ext-install mbstring intl zip mysqli pdo_mysql && \
-    docker-php-ext-enable apcu opcache xdebug && \
+    docker-php-ext-install intl zip && \
+    docker-php-ext-enable opcache apcu xdebug && \
     apk del .build-deps && \
     apk add gosu --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ && \
     addgroup bar && \
