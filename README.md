@@ -8,4 +8,20 @@
 
 ## Mysql:8.0
 
-If you use mysql 8.0 you need change or add user with old mysql password encryption.
+Since Mysql 8.0 a new default authentification plugin used but there are few problem with.
+The solution is config your mysql and ALTER or CREATE user with old authentification plugin.
+
+1. Change the default plugin in `my.cnf`
+
+```
+[mysqld]
+default_authentication_plugin=mysql_native_password
+```
+
+2. CREATE or ALTER user
+
+*Here create version used*
+
+```sql
+CREATE USER 'nativeuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+```
