@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 
-uid=$(stat -c %u /srv)
-gid=$(stat -c %g /srv)
+: ${GID:=1000}
+: ${UID:=1000}
+
+uid=${UID}
+gid=${GID}
 
 : ${XDEBUG:=0}
 : ${XDEBUG_CLI:=0}
