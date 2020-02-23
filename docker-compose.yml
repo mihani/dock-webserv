@@ -6,9 +6,6 @@ services:
     env_file: docker.env
     environment:
       SSH_AUTH_SOCK: /tmp/agent.sock
-      XDEBUG: ${XDEBUG}
-      PHP_IDE_CONFIG: serverName=${XDEBUG_SERVER_NAME}
-      XDEBUG_CONFIG: remote_host=${LOCAL_IP} remote_port=${XDEBUG_PORT} idekey=${XDEBUG_IDEKEY}
     volumes:
       - $SSH_AUTH_SOCK:/tmp/agent.sock
       - ~/.composer:/home/.composer
