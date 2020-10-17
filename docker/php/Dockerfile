@@ -1,8 +1,8 @@
-FROM php:7.4.2-fpm-alpine
+FROM php:7.4.11-fpm-alpine
 
 ENV APCU_VERSION 5.1.18
-ENV XDEBUG_VERSION 2.9.2
-ENV COMPOSER_VERSION 1.9.3
+ENV XDEBUG_VERSION 2.9.8
+ENV COMPOSER_VERSION 2.0.0-RC2
 
 RUN apk add --update --no-cache \
         bash \
