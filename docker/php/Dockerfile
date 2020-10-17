@@ -18,7 +18,7 @@ RUN apk add --update --no-cache \
         $PHPIZE_DEPS \
         icu-dev && \
     pecl install apcu-${APCU_VERSION} xdebug-${XDEBUG_VERSION} && \
-    docker-php-ext-install intl zip && \
+    docker-php-ext-install intl zip mysqli pdo_mysql mbstring && \
     docker-php-ext-enable opcache apcu xdebug && \
     apk del .build-deps && \
     apk add gosu --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ && \
