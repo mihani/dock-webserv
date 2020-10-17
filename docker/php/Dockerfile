@@ -1,8 +1,9 @@
-FROM php:7.4.13-fpm-alpine
+FROM php:8.0.0RC2-fpm-alpine
 
 ENV APCU_VERSION 5.1.19
-ENV XDEBUG_VERSION 3.0.2
-ENV COMPOSER_VERSION 2.0.8
+ENV XDEBUG_VERSION 2.9.8
+ENV COMPOSER_VERSION 2.0.0-RC2
+ENV PICKLE_VERSION 0.6.0
 
 RUN apk add --update --no-cache \
         bash \
@@ -17,8 +18,12 @@ RUN apk add --update --no-cache \
     apk add --update --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
         icu-dev && \
-    pecl install apcu-${APCU_VERSION} xdebug-${XDEBUG_VERSION} && \
-    docker-php-ext-install intl zip && \
+        docker-php-ext-install intl zip
+
+RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v${PICKLE_VERSION}/pickle.phar && mv pickle.phar /usr/local/bin/pickle && \
+    chmod +x /usr/local/bin/pickle && \
+    pickle install xdebug-${XDEBUG_VERSION} && \
+    pickle install apcu-${APCU_VERSION} && \
     docker-php-ext-enable opcache apcu xdebug && \
     apk del .build-deps && \
     apk add gosu --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ && \
