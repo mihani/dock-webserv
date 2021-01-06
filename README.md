@@ -10,7 +10,7 @@ Each version is tested on build step but it isn't already test with project.
 
 ## Images, Main Dependancies version
 
-* PHP : 7.4.13
+* PHP : 8.0.0
 * Composer : 2.0.8
 * XDebug : 3.0.2
 * Docker compose : 3.7
