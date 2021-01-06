@@ -2,6 +2,19 @@
 
 This repo allow to install php and dependency to start project or clone so fast.
 
+## Test Status
+
+Each version is tested on build step but it isn't already test with project.
+
+**This version is not tested in project**
+
+## Images, Main Dependancies version
+
+* PHP : 8.0.0
+* Composer : 2.0.8
+* XDebug : 3.0.2
+* Docker compose : 3.7
+
 ## How use it ?
 
 1. Clone repo
@@ -18,5 +31,6 @@ $ git remote set-url --add origin <your-repository>
 ## Branch description
 
 * `master` : docker-compose with php only
+* `composer-1` : docker-compose with php only and composer 1
 * `php-nginx` : docker compose with php and nginx only
 * `php-nginx-mysql` : docker compose with mysql, php and nginx
