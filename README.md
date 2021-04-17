@@ -14,6 +14,7 @@ Each version is tested on build step but it isn't already test with project.
 * Composer : 2.0.8
 * XDebug : 3.0.2
 * Docker compose : 3.7
+* Nginx 1.15.9
 
 ## How use it ?
 
