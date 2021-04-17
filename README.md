@@ -19,7 +19,7 @@ Each version is tested on build step but it isn't already test with project.
 
 1. Clone repo
 1. Chose your favorite branch and/or tag
-1. Change `docker.env` variables and config `docker-compose.yml`
+1. Change `docker.env` variables
 1. If you would like docker bash history run `touch docker/data/history` before docker up.
 1. Run `docker-compose up -d`
 1. Change git remote to versionning your project
@@ -31,6 +31,7 @@ $ git remote set-url --add origin <your-repository>
 ## Branch description
 
 * `master` : docker-compose with php only and composer 2
+* `only-php-8` : docker-compose with php 8 only and composer 2
 * `composer-1` : docker-compose with php only and composer 1
 * `php-nginx` : docker compose with php and nginx only
 * `php-nginx-mysql` : docker compose with mysql, php and nginx

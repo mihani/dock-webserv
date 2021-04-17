@@ -3,8 +3,6 @@ services:
   php:
     build: ./docker/php
     env_file: docker.env
-    environment:
-      SSH_AUTH_SOCK: /tmp/agent.sock
     volumes:
       - $SSH_AUTH_SOCK:/tmp/agent.sock
       - ~/.composer:/home/.composer
