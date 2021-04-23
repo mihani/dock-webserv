@@ -3,11 +3,14 @@ services:
 
   mysql:
     image: mysql:8.0
-    env_file: docker.env
     volumes:
       - mysql:/var/lib/mysql
-      - ./docker/data:/docker/data
+      - ./docker/data/mysql:/docker/data
       - ./docker/mysql:/etc/mysql/conf.d
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=dbname
+      - MYSQL_ROOT_PASSWORD=password
 
   php:
     build: ./docker/php
